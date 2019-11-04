@@ -1,0 +1,68 @@
+<extend name="Index:index" /> <!--模板继承-->
+
+<block name='right'>
+	<form class="form-inline" action="__URL__/showuser" method="post">
+        <div class="form-group">
+            <label for="inputPassword2" class="sr-only">Password</label>
+            <input type="text" class="form-control" placeholder="请输入用户名" required="" name="name">
+        </div>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    <form action="__URL__/del" method="post">
+	<table class="table table-striped table-bordered">
+		<div class="row">
+    	    <div class="col-md-9">
+    		    <h3 class="page-header" style="text-align: center; color: #000;margin-top:0px;">
+    	        查看用户信息
+                </h3> 
+    	   </div>
+        </div> 		
+		<tr>
+			<th>选择</th>
+ 			<th>用户编号</th>
+			<th>用户名</th>
+			<th>注册时间</th>
+			<th>用户状态</th>
+			<th>联系电话</th>
+			<th>操作</th>
+		</tr>
+		<volist name='rows' id='row'>
+			<tr>
+				<td><input type="checkbox" name="del[]" value="<{$row['id']}>"></td>
+				<td><{$row['id']}></td>
+				<td><{$row['name']}></td>
+				<td><{$row['regtime']|date='Y-m-d',###}></td>
+				<td>
+				<if condition="$row['dongjie'] eq 0 ">
+					<?php
+						echo "未被冻结";
+					?>
+				<else />
+					<?php 
+                        echo "已被冻结";
+					?>
+				</if>
+				</td>
+				<td><{$row['tel']}></td>
+				<td style="width:100px;">
+					<a href="__URL__/changestate/id/<{$row['id']}>" class="btn btn-danger del" idx="<{$row['id']}>">
+						<if condition="$row['dongjie'] eq 0 ">
+							<?php
+							    echo "冻结";
+							?>
+						<else />
+						    <?php 
+                                echo "解冻";
+							?>
+					    </if>
+					</a>
+				</td>
+			</tr>
+		</volist>
+	</table>
+	<button type="submit" class="btn btn-danger">删除选择项</button>
+	<span class="pull-right">总共<{$show}></span>
+</form>
+	</div>
+</block>
+		

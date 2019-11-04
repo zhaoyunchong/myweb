@@ -1,0 +1,29 @@
+<extend name="Index:index" /> <!--模板继承-->
+
+<block name="middle">
+
+	<load href="../Public/css/shop.css" />
+    <div class="header">
+       <span style="margin-left: 20px">
+         <a href="__URL__/index" style="color:#fff">返回>></a>
+       </span>
+       <span style="margin-left: 300px;color:#fff">商品评论</span>
+    </div>
+    <div style="height: 5px;"></div>
+    <form action="__URL__/saveping" class="form-horizontal" method="post">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">请所购买的商品给出评论:</label>
+            <div class="col-sm-6">
+               <textarea name="content" id="" cols="" rows="" style="width: 460px;height: 166.6px;resize: none;"></textarea>
+            </div>
+        </div> 
+        <input type="hidden" name="spid" value="<{$spid}>">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+               <input type="submit" value="提交评论" class="btn btn-primary">
+               <input type="reset" value="重写评论" class="btn btn-danger">
+            </div>
+        </div> 
+     </form>
+</block>

@@ -1,0 +1,257 @@
+1.在纯php代码php文件中，把后面的 ?> 结束符号可以去掉，不影响脚本的运行 
+2.header 前面不能有空格
+3.TP框架的地址栏书写
+1)http://localhost/mweb/index.php?m=Index&a=show
+2)http://localhost/mweb/index.php/Index/show
+m是类 a是方法
+4.将数据赋值给模板 $this->assign('rows',$rows); 显示模板 是 $this->display() 前提是说模板得和类中的方法名一致才可以 
+volist标签 是TP中的遍历数据的标签 使用方法如下:
+<volist name='rows' id='$row'><td>{$row['id']}</td></volist>类似php中的freach函数的使用
+5.入口.
+1.入口文件应该含有 include 'ThinkPHP/ThinkPHP.php';
+6.echo C('DB_NAME');//获取当前数据库的名字
+7.TP下bs框架的引入:<link rel="stylesheet" href="/mweb/public/bs/css/bootstrap.min.css">
+/head>
+8.TP中得到前后台公共文件去的路径简写为:__PUBLIC__/bs/css/bootstrap.min.css 如果是前后台个子的公共文件区域则是:../Public/bs/css/bootstrap.min.css 
+9.全局函数配置文件:ThinkPHP/Common/common.php
+10.在sublime中 ctrl+r键快速的在文件中寻找到方法和函数
+11.自定义函数文件:Home or Admin/Common/common.php 。在这里面书写函数，要覆盖框架里面的同名方法
+12.自定义类文件 Home/Lib/Action/PersonAction.class.php;
+class PersonAction{
+	function say(){
+	  echo "my name is xiaolin";
+	}
+}
+在IndexAction中调用自定义类中的方法是:$obj=A('Person');
+$obj->say(); A(),TP中的全局方法,用于调用类并返回一个方法
+R().方法 使用方法 R('Person/say').直接调用类中的方法
+13.url()模式
+1)普通模式(0)
+ https://localhost/mweb/index.php?m=user&a=index
+2)PATHINFO模式(1)又叫做默认模式
+https://localhost/mweb/index.php/User/index
+3)rewrite模式(2)
+https://localhost/mweb/Index/index/id/5
+4) 兼容模式(3)
+https://localhost/mweb/index.php?s=Index/index(百度不好收录,传统模式)
+14.TP 路由
+1)https://localhost/mweb/course/5
+15.U() 自动生成一个地址,同意TP框架中的路径问题
+16.url生成************************
+
+1.U('index');
+/mweb/index.php/User/index
+
+2.U('Shop/index');
+/mweb/index.php/Shop/index
+
+3.U('Shop/delete','id=5&name=user3');
+/mweb/index.php/Shop/index/id/5/name/3
+
+4.U('Shop/edit',array('id'=>5,'name'=>user3))
+/mweb/index.php/Shop/index/id/5/name/3
+
+注意大U()以下俩者有关系:(在ThinkPHP/conf/convention.php)
+'URL_MODEL'         => 2
+'URL_HTML_SUFFIX'   => ''
+
+17.设置路由:
+1.开启路由:
+'URL_ROUTER_ON'      => true,
+'URL_ROUTE_RULES'    => array(
+     'course/:id'    => 'User/index',
+
+), 
+
+18.URL大小写
+'URL_CASE_INSENSITIVE'=>true
+这个是在地址上写模块地址的时候将不再区分大小写，在linux系统上慎用
+
+19.路径可以写成: 1.<a href="{:U('User/delete')}"></a>.2. <a href="__URL__/id/{$rows['id']}"></a>
+ 要记住volist标签的使用方法在TP中。volist标签类似于Php中数据的遍历
+ <volist name='$rows' id='$row'>
+ 	<td>{$row['id']}</td>
+ 	<td>{$row['username']}</td>
+ 	<td>{$row['password']}</td>
+ </volist>
+
+ 20.__APP__应用的目录 : 指的是 myweb/index.php  __ROOT__指的是网站根目录
+
+ 21.页面跳转
+ 1.成功跳转
+ $this->success('删除成功!',U('index'));
+ 2.失败跳转
+ $this->default('删除失败!',U('index'));.
+ 3.跳转界面的修改(自定义跳转界面)
+ 路径:/myweb/ThinkPHP/Tpl/dispatch.jum.tpl(php和html的混编文件)
+ 1.成功跳转
+ <img src="<?php echo __ROOT__" ?>/Public/image/success.jpg alt="">
+ 2.失败跳转
+ <img src="<?php echo __ROOT__" ?>/Public/image/default.jpg alt="">
+
+ 22.重定向跳转
+ $this->redirect('index');//当前模块的跳转，跨页面跳转在index的前面加上其他模块的名字
+
+33.TP中Php常量(网站中的相对地址) 模板中 用变量必须使用上花括号，那个时候不能算是php中的常量，在html中只是一个字符串，要想在模板中输出 php常量的话 应该是{$Think.const.__SELF__},混编模式下__public__转换成Php常量
+1.__ROOT__    如:/myweb
+2.__APP__     如:/myweb/index.php    
+3.__URL__     如:/myweb/index.php/User
+4.__ACTION__  如:/myweb/index.php/User/index
+5.__SELF__    如:.myweb/index.php/User/index/id/5
+
+34.模板替换(在HTML中的效果)
+1.__ROOT__    如:/myweb
+2.__APP__     如:/myweb/index.php    
+3.__URL__     如:/myweb/index.php/User
+4.__ACTION__  如:/myweb/index.php/User/index
+5.__SELF__    如:/myweb/index.php/User/index/id/5
+6.__PUBLIC__  如:/myweb/Public
+7.../Public   如:/myweb/home/Tpl/Public
+
+35.Action参数传递
+在网页地址上后加上ID 回传到test方法中以参数的形式
+ function test($id){
+    echo $id;
+} 
+36.$this->show();show()方法直接显示里面的内容
+37.ajax的使用 BS中获取标签的非标准属性用法是 id=$this->attr('idx');attr()方法里面的那个属性 得用单引号括起来，用jquery删除数据的时候先给标签加上一个非标准属性，来和该行所在的ID相匹配。
+38.将数组的内容变成json字符串的方法是 json_encode 
+将json字符串变成json对象的方法是: obj=eval('('+r+')');
+
+39.在使用ajax跳转的时候先将 A标签的 地址符 用javascript锁定住
+
+40.在Tp中 list()函数是框架自定义的函数 不要自己在定义重名的list()函数
+
+41.jquery中的ajax方法使用 $.get('跳转的文件位置','传递的参数:'id':{$id}',function(),'json');
+可以直接将跳转的文件内容用ajax的方法 直接把那个文件里面的代码包进来
+
+42.系统绝对地址:相对于盘符的地址,php中不能当做系统绝对地址使用
+
+43.php中定义常量用define 且常量前面不用加$符号 定义方法如下:
+define('APP_NAME','Home');
+在php中 类名和方法名一样的话 可以把该方法看做是 类的构造方法 与__construct()性质一样。
+在类实例化的时候也同时调用了 这个相同名字的方法。记住了，在Php5.5版本之前可以这样用,之后的版本虽然也能这样用，但尽量还是少用
+
+44.TP操作数据
+1.传统方法操作
+1).在ThinkPHP/Common/common.php加一个函数
+function db(){
+	$pdo->new pdo('mysql:host=localhost;dbname=test','root','zhao1996');
+	$pdo->exec('set names utf8');
+	return $pdo;
+}
+class User{
+	public function index(){
+       $pdo=db();
+       $sql="select *from user";
+       $smt=$pdo->prepare($sql);
+       $smt->execute();
+       $rows=$smt->fetchAll(PDO::FETCH_ASSOC);
+	}
+}
+然后在类里面加载这个公共函数就可以在类里面使用数据库了;
+这种公共函数，可以本在应用内所有位置都可以调用,当然也可以在
+/Home/Common/common.php加上这个函数，但范围仅限于 Home文件夹下使用
+2).在入口文件index.php中书写，利用超全局数据可以穿越函数类的方法,将pdo对象赋值到里面,带到类里面(注意:常量也可以穿进类中，但只能是标量,对象不能赋值给常量)
+$pdo=new pdo('mysql:host=localhost;dbname=test','root','zhao1996');
+$pdo->exec('set names utf8');
+$_GET['pdo']=$pdo;
+
+class User{
+	public function index(){
+       $pdo=$_GET['pdo'];
+       $sql="select *from user";
+       $smt=$pdo->prepare($sql);
+       $smt->execute();
+       $rows=$smt->fetchAll(PDO::FETCH_ASSOC);
+	}
+}
+
+2.tp model类操作数据库
+1).curd (create 增加 update 更新 read 查 delete 删除)
+
+2).传统数据库+model类 TP数据库
+初始化操作是 $db=M();
+1.query($sql)
+$db->query($sql);
+查询语句
+2.execute($sql);
+$db->execute();
+增 删 改操作
+
+
+curd操作:
+初始化操作都是 $user=M('User');里面的那个表名 首字母最好大写，虽然和数据库中的不一样但不影响操作
+1.查
+  1.$row=$user->select();执行查语句，并返回一个数组
+  2.$row=$user->limit('0,2')->select();执行查语句,返回结果的前两行数据
+  3.$row=$user->order('id desc')->select();执行查语句,返回一个倒序输出的数组，默认是升序操作
+  4.$row=$user->field('username,password')->select();指定列查询
+  5.$rows=$user->where('id<95')->select();指定条件查询
+  6.$user->find(2);单条查询,如果里面不写参数则默认是第一条数据
+2.删
+1.$row=$user->where('id in(32,33)')->delete();执行删除语句，并返回一个影响行数(将ID为 32,33的数据删除掉)
+注意 sql语句中的 in() 方法 如果只写一个参数表示 在什么范围内删除  where('id in(103)')的意思是将id小于103的数据全部删除
+3.改
+save()
+4.增
+add()
+1.推荐使用第一种方法,第二种方法过滤的没有第一种安全。
+$user=M('User');
+$user->create();  
+//create()方法起着过滤的作用,如果之前作者不按规定设置表单中的name值,则可以重新设置属性 //$this->username=$_POST['name']; $this->password=$_POST['pass'];
+//echo $user-add();输出的是最后一次插入数据库数据的ID值
+//echo $user->getLastSql();输出最后一次操作数据库的sql语句
+//$user=M('User'); 这里的$user是一个数组 用 print_r 输出
+$user->add();
+2.$user->M('User');
+$user->add($_POST)
+
+45.字段排除
+除了某一列之外其他的都要从数据库拿出来
+$user=M('User');
+$rows=$user->field("id",true)->select();
+
+46.得到数据库数据的总行数
+1.方法一
+$user=M('User');
+$rows=$user->field("count(*)")->find();单列查询用find 没必要再用seletc全局查询了
+2.方法二
+$user=M('User');
+$row=$user->count();//model类里面就有一个统计行数的函数
+
+47.数据库查询条件变量
+$user=M('User');
+$cond['username']='user1';
+$cond['password']='123';
+$cond['_logic']='or';
+$rows=$user->where($con)->select();
+如果没有 $cond['_logic']='or'；默认情况下是and关系连接。
+
+48.更改多选框的 选中属性 attr({'checked':true})
+$('button:eq(0)').click(function(){
+    $(':checkbox').each(function(){
+       this.checked=true;
+    });
+  });
+49.TP中的事务机制
+$user->M('User');
+try{
+  $user->startTrans();//先开启事务机制
+  $user->delete(5);
+  $user->deletee(6);//故意写错一个
+  $user->delete(7);
+  $user->commit();//事务提交
+  echo "删除成功!";//如果以上语句全部正确的话，会执行这条语句。
+}catch(Exception $e){
+  echo "删除成功!";
+  $user->rollback();//事务回滚数据库重新返回操作之前的状态
+}
+50.TP中包含 html文件 
+应该在 php文件中分配好变量给 header.html中
+<include file='Public:header' />
+
+TP中包含 js文件 应提前 在 html文件中 分配好变量  让其带入到 js文件中，注意js的外部文件 不要出现 定界符解析的Php变量 否则js文件导入不进来
+<script src='../Public/js/index.js'></script>
+TP 中 <php></php>这种标签不建议使用 还是使用原生的php标签
+

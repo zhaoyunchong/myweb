@@ -1,0 +1,14 @@
+<extend name="Index:index" /> <!--模板继承-->
+<block name='right'>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <p class="text-center"> 评论主题:<span><{$rows['title']}></span></p>
+            </div>
+        </div>
+        <div class="panel-body">
+              评论内容:<p><{$rows['content']}></p>
+        </div>
+    </div>
+    <a href="__URL__/pinglun" class="btn btn-success">返回</a>
+</block>

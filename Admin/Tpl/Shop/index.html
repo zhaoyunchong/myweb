@@ -1,0 +1,60 @@
+<extend name="Index:index" /> <!--模板继承-->
+<block name='right'>
+	<div style="border: 1px dashed #000">
+		<div class="row">
+    	    <div class="col-md-9">
+    		    <h2 class="page-header" style="text-align: center; color: #f00;margin-top:0px;">
+    	        添加商品
+                </h2> 
+    	   </div>
+        </div>
+	<form action="__URL__/insert" class="form-horizontal" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">商品名称:</label>
+            <div class="col-sm-6">
+               <input type="text" class="form-control" id="inputEmail3" name="mingcheng">
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">商品价格:</label>
+            <div class="col-sm-6">
+               <input type="number" class="form-control" id="inputEmail3" name="jiage">
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">商品数量:</label>
+            <div class="col-sm-6">
+               <input type="number" class="form-control" id="inputEmail3" name="shuliang">
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">商品品牌:</label>
+            <div class="col-sm-6">
+               <select class="form-control" name="pinpai">
+				  <option>小米</option>
+				  <option>华为</option>
+              </select>
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">商品图片:</label>
+            <div class="col-sm-6">
+               <input type="file" id="inputEmail3" name="img">
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">商品简介:</label>
+            <div class="col-sm-6">
+               <textarea name="jianjie" id="" cols="" rows="" style="width: 460px;height: 166.6px;resize: none;"></textarea>
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-4 control-label"></label>
+            <div class="col-sm-6">
+               <input type="submit" value="添加" class="btn btn-primary">
+               <input type="reset" value="重写" class="btn btn-danger">
+            </div>
+        </div> 
+	 </form>
+	</div>
+</block>

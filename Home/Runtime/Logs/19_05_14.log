@@ -1,0 +1,9 @@
+[ 2019-05-14T10:46:16+08:00 ] 0.0.0.0 /myweb/index.php/Index/vcode
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001685s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001746s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead C:\AppServ\www\myweb\ThinkPHP\Lib\Core\Dispatcher.class.php 第 132 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001141s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001193s ]
+

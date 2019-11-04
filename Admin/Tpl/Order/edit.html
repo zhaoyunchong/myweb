@@ -1,0 +1,41 @@
+<extend name="Index:index" /> <!--模板继承-->
+
+<block name='right'>
+	<div style="border: 1px dashed #000">
+		<div class="row">
+    	    <div class="col-md-9">
+    		    <h2 class="page-header" style="text-align: center; color: #f00;margin-top:0px;">
+    	        修改订单信息
+                </h2> 
+    	   </div>
+        </div>
+	<form action="__URL__/change" class="form-horizontal" method="post">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">订单号:</label>
+            <div class="col-sm-6">
+               <input type="text" name="dingdanhao" class="form-control" id="inputEmail3" readonly="" value="<{$rows['dingdanhao']}>">
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">订单状态:</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="zt">
+                  <option value="<{$rows['zt']}>"><{$rows['zt']}></option>
+                  <option value="已收款">已收款</option>
+                  <option value="已发货">已发货</option>
+                  <option value="未做任何处理">未做任何处理</option>
+              </select>
+            </div>
+        </div>  
+        <input type="hidden" name="id" value="<{$rows['id']}>">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-4 control-label"></label>
+            <div class="col-sm-6">
+               <input type="submit" value="修改" class="btn btn-primary">
+               <input type="reset" value="重写" class="btn btn-danger">
+            </div>
+        </div> 
+	 </form>
+	</div>
+</block>
+</block>

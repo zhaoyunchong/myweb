@@ -1,0 +1,64 @@
+
+<extend name="Index:index" /> <!--模板继承-->
+<block name="middle">
+    <load href="../Public/css/goods.css" />
+    <div class="header">
+        <a href="__APP__/Index/index">首页</a>
+        <span>>><{$rows['pinpai']}></span>
+        <span>>><{$rows['mingcheng']}></span>
+    </div>
+    <table class="table table-scriped table-bordered">
+    	<tr>
+    		<th>图片</th>
+    		<th>简介</th>
+    		<th>库存数量</th>
+    		<th>加入购物车</th>
+    	</tr>
+    	<tr>
+    		<td>
+    			<img src="__PUBLIC__/uploads/<{$rows['img']}>" alt="">
+    		</td>
+    		<td>
+    			<{$rows['jianjie']}>
+    		</td>
+    		<td>
+    			<{$rows['shuliang']}>
+    		</td>
+    		<td>
+    			<a href="__APP__/Shop/insert/id/<{$rows['id']}>" class="btn btn-primary btn-lg">加入购物车</a>
+    		</td>
+    	</tr>
+    </table>
+    <div class="pinglun">
+    	<div class="ping">
+    		<span>商品评论:</span>
+    	</div>
+    	<div class="content">
+            
+            <?php
+                 if(!$prows){
+                 echo "<br>";
+                 echo "<p>该商品暂无评论!</p>";
+                 echo "<hr>";
+             }else{
+
+            ?>
+            <for start="0" end="$tot">
+                <br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <{$arr1[$i]}>用户说:
+                    </div>
+                    <div class="col-md-8">
+                        <{$arr2[$i]}>
+                        <span class="pull-right">评价时间:<{$arr3[$i]| date='Y-m-d h:i:s',###}></span>
+                    </div>
+                </div>
+                <hr>
+           </for>
+            <?php
+            }
+            ?>
+    	</div>
+    </div>
+</block>
